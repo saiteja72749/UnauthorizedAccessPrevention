@@ -19,6 +19,8 @@
   padding: 5px; 
   box-sizing: border-box;
   flex: auto;
+  border-radius: 10px;
+  align-items: baseline;
 }
 
 button{
@@ -33,7 +35,20 @@ button{
   background-color:#0f0909;
   color: #ffffff;   
   text-align: center;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
 }
+ button:hover{
+  background-color: #480774;
+  transform: translateY(2px);
+ }
+
+ button:active{
+  box-shadow: 0 5px #666;
+  transform: translateY(2px);
+ }
+
 .Enter{
   margin: 0px;
   padding-top: 10px;
@@ -66,5 +81,15 @@ button{
   position: relative;
   border:grey;
   color: #0c0a07;
-  
+  width: 0px;
+  box-shadow: none;
 }
+
+.showHide:hover{
+background-color:unset;
+}
+
+.showHide:active{
+    box-shadow:none;
+    transform: translateY(2px);
+   }

@@ -121,7 +121,7 @@ useEffect(()=>{
             className='inputbox'
             disabled={disable}
           />
-          <button type='button' onClick={showHide} className='showHide'>
+          <button type='button' onClick={showHide} className='showHide' disabled={disable}>
             {input === 'text' ? <BiSolidHide /> : <BiSolidShow />}
           </button>
           <br /> &nbsp; &nbsp;
@@ -130,31 +130,30 @@ useEffect(()=>{
           <br />
 
           <div className='button-group'>
-          <button type='button' onClick={() => setValue(value.slice(0, -1))} className='BackSpace'>
-            Back Space
-          </button>
+          <button type='button' onClick={() => setValue(value.slice(0, -1))} className='BackSpace' disabled={disable}>Back Space</button>
           <br />
 
-          <button type='button' onClick={() => setValue(value + '7')}>7</button>
-          <button type='button' onClick={() => setValue(value + '8')}>8</button>
-          <button type='button' onClick={() => setValue(value + '9')}>9</button>
+          <button type='button' onClick={() => setValue(value + '7')} disabled={disable}>7</button>
+          <button type='button' onClick={() => setValue(value + '8')} disabled={disable}>8</button>
+          <button type='button' onClick={() => setValue(value + '9')} disabled={disable}>9</button>
           <br />
 
-          <button type='button' onClick={() => setValue(value + '4')}>4</button>
-          <button type='button' onClick={() => setValue(value + '5')}>5</button>
-          <button type='button' onClick={() => setValue(value + '6')}>6</button>
+          <button type='button' onClick={() => setValue(value + '4')} disabled={disable}>4</button>
+          <button type='button' onClick={() => setValue(value + '5')} disabled={disable}>5</button>
+          <button type='button' onClick={() => setValue(value + '6')} disabled={disable}>6</button>
           <br />
 
-          <button type='button' onClick={() => setValue(value + '1')}>1</button>
-          <button type='button' onClick={() => setValue(value + '2')}>2</button>
-          <button type='button' onClick={() => setValue(value + '3')}>3</button>
+          <button type='button' onClick={() => setValue(value + '1')} disabled={disable}>1</button>
+          <button type='button' onClick={() => setValue(value + '2')} disabled={disable}>2</button>
+          <button type='button' onClick={() => setValue(value + '3')} disabled={disable}>3</button>
           <br />
 
-          <button type='button' onClick={() => setValue(value + '0')}>0</button>
-          <button type='submit' onClick={handleClick} className='Enter'>Enter</button>
+          <button type='button' onClick={() => setValue(value + '0')} disabled={disable}>0</button>
+          <button type='submit' onClick={handleClick} className='Enter' disabled={disable}>Enter</button>
           <br />
 
-          <button type='button' onClick={() => setValue('')} className='Clear'>Clear</button>
+          <button type='button' onClick={() => setValue('')} className='Clear' 
+          disabled={disable}>Clear</button>
           </div>
           <input type='hidden' name='message' value={"Unauthorized access detected."}/>
         </form>
