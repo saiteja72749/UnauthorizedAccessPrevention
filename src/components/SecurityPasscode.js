@@ -28,23 +28,28 @@ function SecurityPasscode() {
       return prevCount-1})
 }
 const start = () => {
-  timerRef.current = setInterval(timer,1000)
-  console.log('timer started', timer);
+  if(!timerRef.current){
+    timerRef.current = setInterval(timer,1000)
+    console.log('timer started', timer);
+  }
   setDisable(true);
   setpasswordCorrect(true);
 }
 
 const stop = () => {
-  clearInterval(timerRef.current)
+  if(timerRef.current){
+    clearInterval(timerRef.current)
+    timerRef.current=null;
+    console.log("timer stopped");
+  }
   // setPause(true);
   setDisable(false)
   setCount(60);
-  console.log("timer stopped");
 }
 
 useEffect(()=>{
   return ()=> clearInterval(timerRef.current)
-})
+},[])
 
   const Focus = () => {
     inputRef.current.focus();
@@ -65,11 +70,7 @@ useEffect(()=>{
 }
 
   const showHide = () => {
-    if (input === 'password') {
-      setInput('text');
-    } else {
-      setInput('password');
-    }
+    setInput(input==='password'? 'text': 'password');
   };
 
   useEffect(()=>{
@@ -100,9 +101,7 @@ useEffect(()=>{
           console.log("email sent");
           alert('You entered incorrect passcode for 3 times. A mail sent to the owner'); 
           setDisable(true); 
-          // timer();
           start();
-          // stop();
         }
         return newAttempts;
       })
