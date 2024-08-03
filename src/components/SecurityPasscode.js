@@ -10,15 +10,50 @@ function SecurityPasscode() {
   const [auth, setAuth] = useState(false);
   const [passwordCorrect, setpasswordCorrect] = useState(true);
   const [attempts, setAttempts] = useState(0);
+  const [disable, setDisable] = useState(false);
+  const [count, setCount] = useState(60);
 
   const inputRef = useRef(null);
   const formRef = useRef(null);
+  const timerRef = useRef(null);
+
+  function timer(){
+    setCount(prevCount=>{
+      if(prevCount<1){
+        stop();
+        clearInterval(timerRef.current)
+        setDisable(false);
+        return 0;
+      }
+      return prevCount-1})
+}
+const start = () => {
+  timerRef.current = setInterval(timer,1000)
+  console.log('timer started', timer);
+  setDisable(true);
+  setpasswordCorrect(true);
+}
+
+const stop = () => {
+  clearInterval(timerRef.current)
+  // setPause(true);
+  setDisable(false)
+  setCount(60);
+  console.log("timer stopped");
+}
+
+useEffect(()=>{
+  return ()=> clearInterval(timerRef.current)
+})
 
   const Focus = () => {
     inputRef.current.focus();
   };
 
   const sendEmail = (e) => {
+    if(disable){
+      return;
+    }
     const formElement = formRef.current;
     console.log({ input: value });
     emailjs.sendForm('service_4aoupwu', 'template_x1ciibj', formElement, 'JFEB9cka8w0T7GpPH')
@@ -63,7 +98,11 @@ function SecurityPasscode() {
         if(newAttempts >=3){
           sendEmail();
           console.log("email sent");
-          alert('You entered incorrect passcode for 3 times. A mail sent to the owner');  
+          alert('You entered incorrect passcode for 3 times. A mail sent to the owner'); 
+          setDisable(true); 
+          // timer();
+          start();
+          // stop();
         }
         return newAttempts;
       })
@@ -81,12 +120,14 @@ function SecurityPasscode() {
             placeholder='Enter the Passcode'
             ref={inputRef}
             className='inputbox'
+            disabled={disable}
           />
           <button type='button' onClick={showHide} className='showHide'>
             {input === 'password' ? <BiSolidShow /> : <BiSolidHide />}
           </button>
           <br /> &nbsp; &nbsp;
-          <p className='errormsg'>{!passwordCorrect && 'Your password is incorrect'}</p>
+          <p className='errormsg'>{ disable? `wait for another ${count} seconds before trying again` :
+          !passwordCorrect? 'Your password is incorrect': ''}</p>
           <br />
 
           <div className='button-group'>
@@ -116,8 +157,6 @@ function SecurityPasscode() {
 
           <button type='button' onClick={() => setValue('')} className='Clear'>Clear</button>
           </div>
-        {/* </form> */}
-        {/* <form> */}
           <input type='hidden' name='message' value={"Unauthorized access detected."}/>
         </form>
       </center>
