@@ -70,7 +70,7 @@ useEffect(()=>{
 }
 
   const showHide = () => {
-    setInput(input==='password'? 'text': 'password');
+    setInput(input==='text'? 'password': 'text');
   };
 
   useEffect(()=>{
@@ -78,7 +78,7 @@ useEffect(()=>{
   },[])
 
   const handleInputChange = (event) => {
-    setInput(event.target.value);
+    // setInput(event.target.value);
     setValue(event.target.value);
     setAuth(true);
   };
@@ -122,7 +122,7 @@ useEffect(()=>{
             disabled={disable}
           />
           <button type='button' onClick={showHide} className='showHide'>
-            {input === 'password' ? <BiSolidShow /> : <BiSolidHide />}
+            {input === 'text' ? <BiSolidHide /> : <BiSolidShow />}
           </button>
           <br /> &nbsp; &nbsp;
           <p className='errormsg'>{ disable? `wait for another ${count} seconds before trying again` :
